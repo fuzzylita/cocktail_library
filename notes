@@ -1,0 +1,9 @@
+Building the cocktail library
+
+1. Plan gem and interface - done!
+2. Create the project structure (through bundle gem <name>) - done!
+3. build the entry point, the file run
+4. make sure that it successfully runs the CLI interface
+4. build out the CLI interface with hard coded data
+5. build out the object classes for cocktail db and cocktail with fake data 
+6. make sure they interact correctly
