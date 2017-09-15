@@ -35,7 +35,7 @@ class CocktailLibrary::CLI
       puts ""
       puts "Perhaps the smoothie place down the road would be more to your liking."
       exit
-    elsif !bases.include?(bases[@base_choice.to_i-1])
+    elsif !bases.include?(bases[@base_choice.to_i-1]) || @base_choice.to_i < 1
       puts "Ehmm... Our menu is a little limited.. sorry."
       puts "Do you have anything on hand from these options?"
       base_selection
@@ -45,8 +45,6 @@ class CocktailLibrary::CLI
   end
 
   def drinks_available
-    puts ""
-    #display the output of the drink scrape here
 
     @cocktail_db = CocktailLibrary::CocktailDB.new
     @drinks_list = @cocktail_db.search_by_base(@base_type)
@@ -69,17 +67,25 @@ class CocktailLibrary::CLI
     puts ""
     puts "Which of these would you like to make?"
     puts ""
-    puts "Please enter the drink name:"
+    puts "Please enter the drink name, or enter exit if you'd like to leave:"
     puts ""
 
     drink_selection = gets.chomp.downcase
-    #the user needs to select one of the options
-    #based on that selection, we need to return the right details
+ 
+    if drink_selection.class != String || @drinks_list[drink_selection] == nil
+      puts ""
+      puts "Hmm, not sure how to make that one... Sorry about that!"
+      puts ""
+      drink_directions
 
-    #the list of cocktails and ingredients
-
-    @drinks_list[drinks_selection].each do |direction, specifics|
-      puts "#{direction}: #{specifics.join(", ")}"
+    elsif drink_selection == "exit"
+        puts ""
+        puts "Sorry we couldn't find something you were interested in."
+        exit
+    else 
+      @drinks_list[drink_selection].each do |direction, specifics|
+        puts "#{direction}: #{specifics.join(", ")}"
+      end
     end 
   end
 end
