@@ -71,17 +71,16 @@ class CocktailLibrary::CLI
     puts ""
 
     drink_selection = gets.chomp.downcase
- 
-    if drink_selection.class != String || @drinks_list[drink_selection] == nil
+    
+    if drink_selection == "exit"
+      puts ""
+      puts "Sorry we couldn't find something you were interested in."
+      exit
+    elsif drink_selection.class != String || @drinks_list[drink_selection] == nil
       puts ""
       puts "Hmm, not sure how to make that one... Sorry about that!"
       puts ""
       drink_directions
-
-    elsif drink_selection == "exit"
-        puts ""
-        puts "Sorry we couldn't find something you were interested in."
-        exit
     else 
       @drinks_list[drink_selection].each do |direction, specifics|
         puts "#{direction}: #{specifics.join(", ")}"
