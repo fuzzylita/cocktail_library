@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require "./lib/cocktail_library"
+
+CocktailLibrary::CLI.new.run
