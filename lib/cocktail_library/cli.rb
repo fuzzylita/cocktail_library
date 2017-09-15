@@ -10,7 +10,29 @@ class CocktailLibrary::CLI
   end
 
   def greeting
-    puts <<~DOC
+
+          #                        /|     /|
+          #                       // ( `""-
+          #                      \| /     6\___
+          #                     /       6      4
+          #                     /            _ /
+          #                    /          .--'
+          #                   (              \
+          #                  /            \  \\
+          #                /             \  \  \
+          #     ,         /                \ \ \
+          #     )\      /                 \    \
+          #    /  |   .'`   _                 \
+          #  /`  /  .'       '.        ,\   \/
+          # /   /  /           \   ;   |   /
+          # |   \ |            |   |   |  '
+          # \   `"|           /   .|   | |
+          #   '-..-\       _.;.._ '|   |.;-.
+          #         \    <`.._  )) |  .;-. ))
+          #         (__.  `  ))-'  \_    ))'
+          #             `'--"`       `"""`
+    
+    puts <<~DOC      
     
     Hello there, I am Tiki, your very floofy bartender!
     I'm going to give you a list of drinks based on whatever liquor you have on hand.
