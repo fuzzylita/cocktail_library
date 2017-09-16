@@ -7,3 +7,33 @@ Building the cocktail library
 4. build out the CLI interface with hard coded data
 5. build out the object classes for cocktail db and cocktail with fake data 
 6. make sure they interact correctly
+
+
+
+
+
+
+Test hash:
+
+  # @@drinks = {
+  #   "whiskey" => {
+  #     "manhattan" => {
+  #       "ingredients" => ["Whiskey", "Vermouth", "Bitters"],
+  #       "instructions" => ["measure out correct portions and stir, garnish"],
+  #     },
+  #     "vieux carre" => {
+  #       "ingredients" => ["Whiskey", "Brandy", "Vermouth", "Bitters", "Benedictine"],
+  #       "instructions" => ["measure out correct portions and stir, garnish"],
+  #     },
+  #   },
+  #   "rum" => {
+  #     "daiquiri" => {
+  #       "ingredients" => ["Rum", "Lime", "Sweet shit, not too much tho"],
+  #       "instructions" => ["measure out correct portions and shake, garnish"],
+  #     },
+  #     "rum and honey" => {
+  #       "ingredients" => ["Rum", "Honey Syrup", "Orange Bitters"],
+  #       "instructions" => ["measure out correct portions and stir, garnish"],
+  #     },
+  #   },
+  # }

@@ -19,9 +19,9 @@ class CocktailLibrary::CLI
   #                             /            _ /
   #                            /          .--'
   #                           (              \
-  #                          /            \  \ \
+  #                          /               \ \
   #                        /             \  \  \
-  #             ,         /                \ \ \
+  #             ,         /                   \ \
   #             )\      /                 \    \
   #           \/  |   .'`   _                 \
   #         \.   /  .'       '.        ,\   \/
@@ -54,6 +54,7 @@ class CocktailLibrary::CLI
     puts ""
     puts "Please enter the number of the base you'd like to use, or enter exit to quit."
 
+    #this is all escapes for incorrect entries or exit
     @base_choice = gets.chomp.downcase
     if @base_choice == "exit"
       puts ""
@@ -65,16 +66,18 @@ class CocktailLibrary::CLI
       puts "Do you have anything on hand from these options?"
       base_selection
     else
+      #this is defining the search object
       @base_type = bases[@base_choice.to_i-1].downcase
     end 
   end
 
   def drinks_available
-
+    #instantiates a cocktaildb object to search for drinks
     @cocktail_db = CocktailLibrary::CocktailDB.new
+    #this calls the search
     @drinks_list = @cocktail_db.search_by_base(@base_type)
-    counter = 1
     
+    #escape for incorrect entry
     if @drinks_list == nil
       puts "I'm sorry, we have no idea how to make drinks with #{@base_type.gsub(/\w+/) {|word| word.capitalize}}."
       puts "Here is a beer."
@@ -82,9 +85,7 @@ class CocktailLibrary::CLI
     else
       puts "Here are the drinks you can make with #{@base_type.gsub(/\w+/) {|word| word.capitalize}}:"
       
-      @drinks_list.each do |cocktail, details|
-        puts "- #{cocktail.gsub(/\w+/){|word| word.capitalize}}"
-      end 
+      puts @drinks_list
     end 
   end 
 
