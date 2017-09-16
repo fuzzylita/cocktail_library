@@ -13,28 +13,39 @@ class CocktailLibrary::CocktailDB
   we need to use that value to make the request for available drinks with that base
 =end 
 
-  @@drinks = {
-    "whiskey" => {
-      "manhattan" => {
-        "ingredients" => ["Whiskey", "Vermouth", "Bitters"],
-        "instructions" => ["measure out correct portions and stir, garnish"],
-      },
-      "vieux carre" => {
-        "ingredients" => ["Whiskey", "Brandy", "Vermouth", "Bitters", "Benedictine"],
-        "instructions" => ["measure out correct portions and stir, garnish"],
-      },
-    },
-    "rum" => {
-      "daiquiri" => {
-        "ingredients" => ["Rum", "Lime", "Sweet shit, not too much tho"],
-        "instructions" => ["measure out correct portions and shake, garnish"],
-      },
-      "rum and honey" => {
-        "ingredients" => ["Rum", "Honey Syrup", "Orange Bitters"],
-        "instructions" => ["measure out correct portions and stir, garnish"],
-      },
-    },
-  }
+  # @@drinks = {
+  #   "whiskey" => {
+  #     "manhattan" => {
+  #       "ingredients" => ["Whiskey", "Vermouth", "Bitters"],
+  #       "instructions" => ["measure out correct portions and stir, garnish"],
+  #     },
+  #     "vieux carre" => {
+  #       "ingredients" => ["Whiskey", "Brandy", "Vermouth", "Bitters", "Benedictine"],
+  #       "instructions" => ["measure out correct portions and stir, garnish"],
+  #     },
+  #   },
+  #   "rum" => {
+  #     "daiquiri" => {
+  #       "ingredients" => ["Rum", "Lime", "Sweet shit, not too much tho"],
+  #       "instructions" => ["measure out correct portions and shake, garnish"],
+  #     },
+  #     "rum and honey" => {
+  #       "ingredients" => ["Rum", "Honey Syrup", "Orange Bitters"],
+  #       "instructions" => ["measure out correct portions and stir, garnish"],
+  #     },
+  #   },
+  # }
+
+  base_results = open('http://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Vodka')
+  base_parsed = JSON.load(base_results)
+  base_parsed['drinks'].each do |k,v|
+    k.each do |k, v|
+      if k == "strDrink"
+        puts v
+      end
+    end
+  end
+
 
   def search_by_base(base)
     @@drinks[base]
