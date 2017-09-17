@@ -15,32 +15,32 @@ class CocktailLibrary::CLI
   end
 
   def greeting
-  tiki = %Q{    
-                                 /|     /|
-                                // ( `""-
-                               \| /     .\___
-                              /       .      4
-                              /            _ /
-                             /          .--'
-                            (              \
-                           /               \ \
-                         /             \  \  \
-              ,         /            \      \ \
-              )\      /                 \    \
-            \/  |   .'`   _                 \       \______/_/
-          \.   /  .'       '.        ,\   \/         \   (o)/ 
-         \'   /  /           \   ;   |   /            \  ' /
-        \'    \ |            |   |   |  '              \  / 
-         \,   `"|           /   .|   | |                ||
-           ''-..-\       _.;.._ '|   |.;-.              ||
-                  \    <`.._  )) |  .;-. ))            /  \
-                  (__.  `  ))-'  \_    ))'            ++++++
-                      `'--"`       `"""`              
-  }
-  puts tiki
+  # tiki = %Q{    
+  #                                /|     /|
+  #                               // ( `""-
+  #                              \| /     .\___
+  #                             /       .      4
+  #                             /            _ /
+  #                            /          .--'
+  #                           (              \
+  #                          /               \ \
+  #                        /             \  \  \
+  #             ,         /            \      \ \
+  #             )\      /                 \    \
+  #           \/  |   .'`   _                 \       \______/_/
+  #         \.   /  .'       '.        ,\   \/         \   (o)/ 
+  #        \'   /  /           \   ;   |   /            \  ' /
+  #       \'    \ |            |   |   |  '              \  / 
+  #        \,   `"|           /   .|   | |                ||
+  #          ''-..-\       _.;.._ '|   |.;-.              ||
+  #                 \    <`.._  )) |  .;-. ))            /  \
+  #                 (__.  `  ))-'  \_    ))'            ++++++
+  #                     `'--"`       `"""`              
+  # }
+  # puts tiki
 
   puts <<~DOC      
-    
+
     Hello there, I am Tiki, your very floofy bartender!
     I'm going to give you a list of drinks based on whatever liquor you have on hand.
     
@@ -50,7 +50,7 @@ class CocktailLibrary::CLI
   end 
 
   def base_selection
-    @bases.each_with_index do |base, index|
+    @bases.sort!.each_with_index do |base, index|
       puts "#{index + 1}. #{base}"
     end 
     

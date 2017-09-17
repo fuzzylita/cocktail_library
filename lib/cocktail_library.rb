@@ -1,5 +1,5 @@
 module CocktailLibrary
-  BASES = ["Whiskey", "Rum", "Gin", "Tequila", "Brandy"]
+  BASES = ["Whiskey", "Bourbon", "Scotch", "Applejack", "Cognac", "Rum", "Gin", "Tequila", "Brandy"].sort!
 end 
 
 require 'open-uri'
