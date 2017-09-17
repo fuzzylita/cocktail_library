@@ -1,6 +1,11 @@
 require 'pry'
 
 class CocktailLibrary::CLI
+  
+  def initialize
+    @bases = CocktailLibrary::BASES
+    @cocktail_db = CocktailLibrary::CocktailDB.new
+  end 
 
   def run
     greeting
@@ -10,30 +15,29 @@ class CocktailLibrary::CLI
   end
 
   def greeting
-  # tiki = %Q{    
-    
-  #                                /|     /|
-  #                               // ( `""-
-  #                              \| /     .\___
-  #                             /       .      4
-  #                             /            _ /
-  #                            /          .--'
-  #                           (              \
-  #                          /               \ \
-  #                        /             \  \  \
-  #             ,         /                   \ \
-  #             )\      /                 \    \
-  #           \/  |   .'`   _                 \
-  #         \.   /  .'       '.        ,\   \/
-  #        \'   /  /           \   ;   |   /
-  #       \'    \ |            |   |   |  '
-  #        \,   `"|           /   .|   | |
-  #          ''-..-\       _.;.._ '|   |.;-.
-  #                 \    <`.._  )) |  .;-. ))
-  #                 (__.  `  ))-'  \_    ))'
-  #                     `'--"`       `"""`
-  # }
-  # puts tiki
+  tiki = %Q{    
+                                 /|     /|
+                                // ( `""-
+                               \| /     .\___
+                              /       .      4
+                              /            _ /
+                             /          .--'
+                            (              \
+                           /               \ \
+                         /             \  \  \
+              ,         /            \      \ \
+              )\      /                 \    \
+            \/  |   .'`   _                 \       \______/_/
+          \.   /  .'       '.        ,\   \/         \   (o)/ 
+         \'   /  /           \   ;   |   /            \  ' /
+        \'    \ |            |   |   |  '              \  / 
+         \,   `"|           /   .|   | |                ||
+           ''-..-\       _.;.._ '|   |.;-.              ||
+                  \    <`.._  )) |  .;-. ))            /  \
+                  (__.  `  ))-'  \_    ))'            ++++++
+                      `'--"`       `"""`              
+  }
+  puts tiki
 
   puts <<~DOC      
     
@@ -46,8 +50,7 @@ class CocktailLibrary::CLI
   end 
 
   def base_selection
-    bases = CocktailLibrary::BASES
-    bases.each_with_index do |base, index|
+    @bases.each_with_index do |base, index|
       puts "#{index + 1}. #{base}"
     end 
     
@@ -61,19 +64,17 @@ class CocktailLibrary::CLI
       puts ""
       puts "Perhaps the smoothie place down the road would be more to your liking."
       exit
-    elsif !bases.include?(bases[@base_choice.to_i-1]) || @base_choice.to_i < 1
+    elsif !@bases.include?(@bases[@base_choice.to_i-1]) || @base_choice.to_i < 1
       puts "Ehmm... Our menu is a little limited.. sorry."
       puts "Do you have anything on hand from these options?"
       base_selection
     else
       #this is defining the search object
-      @base_type = bases[@base_choice.to_i-1].downcase
+      @base_type = @bases[@base_choice.to_i-1].downcase
     end 
   end
 
   def drinks_available
-    #instantiates a cocktaildb object to search for drinks
-    @cocktail_db = CocktailLibrary::CocktailDB.new
     #this calls the search
     @drinks_list = @cocktail_db.search_by_base(@base_type)
     
@@ -97,20 +98,31 @@ class CocktailLibrary::CLI
     puts ""
 
     drink_selection = gets.chomp.downcase
-    
+    #escape if not interested
     if drink_selection == "exit"
       puts ""
       puts "Sorry we couldn't find something you were interested in."
       exit
-    elsif drink_selection.class != String || @drinks_list[drink_selection] == nil
+    #escape if invalid entry
+    elsif drink_selection.class != String || @drinks_list.include?(drink_selection) == nil
       puts ""
       puts "Hmm, not sure how to make that one... Sorry about that!"
       puts ""
       drink_directions
     else 
-      @drinks_list[drink_selection].each do |direction, specifics|
-        puts "#{direction}: #{specifics.join(", ")}"
-      end
+      #take drink selection and push it into the API
+      drink = @cocktail_db.drink_components(drink_selection)
+      
+      puts "One second, let me put that together for you!"
+      sleep(1)
+
+      puts "Ok, here is your #{drink.name}"
+      puts "To make this drink again, here's what to do: "
+      drink.ingredients.each_with_index do |ing, idx|
+        puts "#{drink.measurements[idx]}: #{ing}"
+      end 
+      puts "#{drink.instructions}"
+      puts "Hope you enjoy, and thanks for your patronage!"
     end 
   end
 end
