@@ -96,18 +96,22 @@ class CocktailLibrary::CLI
     puts "Please enter the drink name, or enter exit if you'd like to leave:"
     puts ""
 
+    @search_list = @drinks_list.map {|el| el.downcase}
+
     drink_selection = gets.chomp.downcase
     #escape if not interested
     if drink_selection == "exit"
       puts ""
       puts "Sorry we couldn't find something you were interested in."
       exit
+
     #escape if invalid entry
-    elsif drink_selection.class != String || @drinks_list.include?(drink_selection) == nil
+    elsif !@search_list.include?(drink_selection)
       puts ""
       puts "Hmm, not sure how to make that one... Sorry about that!"
       puts ""
       drink_directions
+      
     else 
       #take drink selection and push it into the API
       drink = @cocktail_db.drink_components(drink_selection)
